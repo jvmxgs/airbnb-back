@@ -2,9 +2,9 @@
   "name": "airbnb-back",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "dev": "node --watch index.js"
+    "dev": "node --watch app.js"
   },
   "author": "Victor Gomez",
   "license": "ISC",
