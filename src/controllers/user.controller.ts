@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import User from '../models/user.model'
 // const usersService = require('../services/users.service');
 
 function index (_req: Request, res: Response, next: NextFunction): void {
@@ -12,16 +13,25 @@ function index (_req: Request, res: Response, next: NextFunction): void {
   }
 }
 
-/* async function create(_req, res, next) {
+function create (req: Request, res: Response, next: NextFunction): void {
   try {
-    console.log(' create users - - - - - - - - - - - - - - - - - -')
-    // res.json(await usersService.create(req.body));
+    const { fullName, birthDate, email, password, role } = req.body
+    const newUser = new User({ fullName, birthDate, email, password, role })
+    newUser.save()
+      .then(() => {
+        res.status(201).json({ message: 'User registered successfully' })
+      })
+      .catch((error) => {
+        next(error)
+      })
   } catch (err) {
-    console.error(`Error while creating programming language`, err.message);
-    next(err);
+    const error = err as Error
+    console.error('Error while creating programming language', error.message)
+    next(error)
   }
 }
 
+/*
 async function update(req, res, next) {
   try {
     console.log(' update users - - - - - - - - - - - - - - - - - -')
@@ -43,7 +53,8 @@ async function remove(req, res, next) {
 } */
 
 export default {
-  index
+  index,
+  create
   /* create,
   update,
   remove */
