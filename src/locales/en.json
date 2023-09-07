@@ -1,0 +1,22 @@
+{
+	"auth": {
+		"unauthorized": "Unauthorized",
+		"login_success": "Login successful"
+	},
+	"login": {
+		"failed": "These credentials do not match our records."
+	},
+	"users": {
+		"created": "User registered successfully!",
+		"email_in_use": "Email already registered!"
+	},
+	"validation": {
+		"users": {
+			"fullname_required": "Fullname is required",
+			"invalid_birth_date": "Invalid date format",
+			"invalid_email": "Invalid email address",
+			"invalid_password": "Password must be at least 6 characters long",
+			"invalid_role": "Invalid user role"
+		}
+	}
+}

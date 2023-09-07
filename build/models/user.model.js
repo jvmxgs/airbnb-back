@@ -17,9 +17,20 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const userSchema = new mongoose_1.default.Schema({
     fullName: String,
     birthDate: Date,
-    email: String,
-    role: String,
-    password: String
+    email: {
+        type: String,
+        unique: true,
+        index: true,
+        required: true
+    },
+    role: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
 });
 userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {

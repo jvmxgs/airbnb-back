@@ -1,0 +1,6 @@
+{
+	"users": {
+		"created": "Userio registrado correctamente!",
+		"email_in_use": "El correo electronico ya esta en uso!"
+	}
+}

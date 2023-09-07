@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import User from '../models/user.model'
+import i18n from 'i18n'
 // const usersService = require('../services/users.service');
 
 function index (_req: Request, res: Response, next: NextFunction): void {
   try {
-    console.log(' get users - - - - - - - - - - - - - - - - - -')
     res.json({ response: 'success' })
   } catch (err) {
     const error = err as Error
@@ -14,21 +14,22 @@ function index (_req: Request, res: Response, next: NextFunction): void {
 }
 
 function create (req: Request, res: Response, next: NextFunction): void {
-  try {
-    const { fullName, birthDate, email, password, role } = req.body
-    const newUser = new User({ fullName, birthDate, email, password, role })
-    newUser.save()
-      .then(() => {
-        res.status(201).json({ message: 'User registered successfully' })
-      })
-      .catch((error) => {
-        next(error)
-      })
-  } catch (err) {
-    const error = err as Error
-    console.error('Error while creating programming language', error.message)
-    next(error)
-  }
+  const { fullName, birthDate, email, password, role } = req.body
+
+  const newUser = new User({ fullName, birthDate, email, password, role })
+
+  newUser.save()
+    .then(() => {
+      res.status(201).json({ message: i18n.__('users.created') })
+    })
+    .catch((error) => {
+      if (error.code === 11000 && 'email' in error?.keyPattern) {
+        res.status(400).json({ message: i18n.__('users.email_in_use') })
+        return
+      }
+
+      next(error)
+    })
 }
 
 /*

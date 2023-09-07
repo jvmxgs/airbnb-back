@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const routes_1 = __importDefault(require("./routes"));
 const db_1 = __importDefault(require("./config/db"));
+const i18n_1 = __importDefault(require("i18n"));
 const app = (0, express_1.default)();
 const port = 3000;
 mongoose_1.default.Promise = Promise;
@@ -18,6 +19,13 @@ mongoose_1.default.connect(db_1.default.connectionString)
 mongoose_1.default.connection.on('error', (error) => console.log(error));
 app.use(express_1.default.json());
 app.use('/', (0, routes_1.default)());
+i18n_1.default.configure({
+    locales: ['en', 'es'],
+    defaultLocale: 'en',
+    directory: './locales',
+    objectNotation: true
+});
+i18n_1.default.setLocale('en');
 app.get('/', (_req, res) => {
     res.send('Hola mundo!');
 });
