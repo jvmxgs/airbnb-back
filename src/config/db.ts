@@ -1,10 +1,15 @@
-const dockerMongoDBHost = 'airbnb-mongodb'
+import mongoose from 'mongoose'
 
-const dbName = 'airbnb'
-
-const connectionString = `mongodb://${dockerMongoDBHost}:27017/${dbName}`
-// const connectionString = 'mongodb+srv://pros-usr-test:dvWcUvporbFKQ0Vi@exam-clus.vc7ioj7.mongodb.net/sample_airbnb'
+function connect (): void {
+  mongoose.Promise = Promise
+  mongoose.connect(process.env.MONGODB_URI ?? 'mongodb://airbnb-mongodb:27017/airbnb')
+    .then(() => {
+      console.log('Connected to database')
+    })
+    .catch(err => console.log(err))
+  mongoose.connection.on('error', (error: Error) => console.log(error))
+}
 
 export default {
-  connectionString
+  connect
 }

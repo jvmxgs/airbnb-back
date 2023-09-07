@@ -30,14 +30,15 @@ const userSchema = new mongoose_1.default.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    validatedAt: {
+        type: Date
+    },
+    validationToken: String
 });
 userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            if (typeof this.password !== 'string' || this.password.trim() === '') {
-                throw new Error('Password is required');
-            }
             const salt = yield bcrypt_1.default.genSalt(10);
             const hashedPassword = yield bcrypt_1.default.hash(this.password, salt);
             this.password = hashedPassword;

@@ -1,11 +1,15 @@
 import express from 'express'
-import mongoose from 'mongoose'
+import dotenv from 'dotenv'
 import routes from './routes'
-import db from './config/db'
 import i18n from 'i18n'
 import path from 'path'
+import db from './config/db'
+
+dotenv.config()
+
 const app = express()
-const port = 3000
+
+const port = process.env.PORT ?? 3000
 
 i18n.configure({
   locales: ['en', 'es'],
@@ -16,13 +20,7 @@ i18n.configure({
 
 i18n.setLocale('en')
 
-mongoose.Promise = Promise
-mongoose.connect(db.connectionString)
-  .then(() => {
-    console.log('Connected to database')
-  })
-  .catch(err => console.log(err))
-mongoose.connection.on('error', (error: Error) => console.log(error))
+db.connect()
 
 app.use(express.json())
 

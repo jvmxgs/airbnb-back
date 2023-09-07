@@ -17,7 +17,11 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  validatedAt: {
+    type: Date
+  },
+  validationToken: String
 })
 
 userSchema.pre('save', async function (next) {

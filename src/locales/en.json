@@ -1,10 +1,9 @@
 {
 	"auth": {
+		"failed": "These credentials do not match our records.",
+		"login_success": "Login successful",
 		"unauthorized": "Unauthorized",
-		"login_success": "Login successful"
-	},
-	"login": {
-		"failed": "These credentials do not match our records."
+		"verify_account": "Your account is not yet verified. Please check your email for a verification link to complete the registration process. If you haven't received the email, please check your spam folder or request a new verification email."
 	},
 	"users": {
 		"created": "User registered successfully!",
