@@ -8,4 +8,8 @@ RUN npm install
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+COPY ./docker/entrypoint.sh /home/entrypoint.sh
+
+RUN chmod +x /home/entrypoint.sh
+
+CMD ["sh", "/home/entrypoint.sh"]
