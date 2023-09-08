@@ -3,15 +3,15 @@ import ListingsAndReview from '../models/listingsAndReview.model'
 
 function index (req: Request, res: Response, _next: NextFunction): void {
   const pageParam = req.query.page as string
-  const limitParam = req.query.limit as string
+  const perPageParam = req.query.perPage as string
 
   const page = isNaN(parseInt(pageParam)) ? 1 : parseInt(pageParam)
-  const limit = isNaN(parseInt(limitParam)) ? 10 : parseInt(limitParam)
+  const limit = isNaN(parseInt(perPageParam)) ? 10 : parseInt(perPageParam)
 
   const skip = (page - 1) * limit
 
   ListingsAndReview.find()
-    .select('name summary description property_type minimum_nights maximum_nights bedrooms beds number_of_reviews bathrooms prices images')
+    .select('name summary description property_type minimum_nights maximum_nights bedrooms beds number_of_reviews bathrooms price images')
     .skip(skip)
     .limit(limit)
     .lean()
@@ -29,6 +29,7 @@ function index (req: Request, res: Response, _next: NextFunction): void {
       }).catch((err) => console.error(err))
     })
     .catch((err) => {
+      console.log(err)
       res.status(500).json({ message: 'Error fetching listings', error: err })
     })
 }

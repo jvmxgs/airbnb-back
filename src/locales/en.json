@@ -15,7 +15,8 @@
 			"invalid_birth_date": "Invalid date format",
 			"invalid_email": "Invalid email address",
 			"invalid_password": "Password must be at least 6 characters long",
-			"invalid_role": "Invalid user role"
+			"invalid_role": "Invalid user role",
+			"password_not_match": "Passwords do NOT match"
 		}
 	}
 }

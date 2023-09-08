@@ -45,21 +45,21 @@ export const validateAccount = (req: Request, res: Response, _next: NextFunction
   try {
     jwt.verify(validationToken, app.secret) as JwtPayload
   } catch (_error) {
-    res.json({ message: 'Invalid or expired token' })
+    res.send('Invalid or expired token')
     return
   }
 
   User.findOne({ validationToken })
     .then(user => {
       if (user === null) {
-        res.json({ message: 'Invalid or expired token' })
+        res.send('Invalid or expired token')
         return
       }
 
       user.validatedAt = new Date()
       user.validationToken = undefined
       user.save().catch((error) => console.error(error))
-      res.json({ message: 'User validated' })
+      res.send('User validated')
     })
     .catch((error) => console.error(error))
 }

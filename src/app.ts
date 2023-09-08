@@ -4,12 +4,29 @@ import routes from './routes'
 import i18n from 'i18n'
 import path from 'path'
 import db from './config/db'
+import cors from 'cors'
 
 dotenv.config()
 
 const app = express()
 
 const port = process.env.PORT ?? 3000
+
+const allowedOrigins = ['http://localhost:8080']
+
+app.use(
+  cors({
+    origin: function (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void): void {
+      console.log({ origin })
+      if (origin === '' || origin === undefined || allowedOrigins.includes(origin ?? '')) {
+        callback(null, true)
+        return
+      }
+
+      callback(new Error('Not allowed by CORS'))
+    }
+  })
+)
 
 i18n.configure({
   locales: ['en', 'es'],

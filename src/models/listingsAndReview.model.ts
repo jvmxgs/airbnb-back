@@ -11,7 +11,7 @@ const listingsAndReviewSchema = new mongoose.Schema({
   beds: Number,
   number_of_reviews: Number,
   bathrooms: Number,
-  prices: Number,
+  price: Number,
   images: Object,
   reviews: Object
 },

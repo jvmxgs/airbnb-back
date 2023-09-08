@@ -16,10 +16,20 @@ function index (_req: Request, res: Response, next: NextFunction): void {
 }
 
 function create (req: Request, res: Response, next: NextFunction): void {
-  const { fullName, birthDate, email, password, role } = req.body
+  const { fullName, birthDate, email, password, passwordConfirm, role } = req.body
 
   const newUser = new User({ fullName, birthDate, email, password, role })
   newUser.validatedAt = undefined
+
+  if (password !== passwordConfirm) {
+    res.status(400).json({
+      errors: [{
+        path: 'password',
+        msg: i18n.__('validation.users.password_not_match')
+      }]
+    })
+    return
+  }
 
   newUser.save()
     .then((user) => {
@@ -110,7 +120,12 @@ function create (req: Request, res: Response, next: NextFunction): void {
     })
     .catch((error) => {
       if (error.code === 11000 && 'email' in error?.keyPattern) {
-        res.status(400).json({ message: i18n.__('users.email_in_use') })
+        res.status(400).json({
+          errors: [{
+            path: 'email',
+            msg: i18n.__('users.email_in_use')
+          }]
+        })
         return
       }
 
@@ -118,31 +133,7 @@ function create (req: Request, res: Response, next: NextFunction): void {
     })
 }
 
-/*
-async function update(req, res, next) {
-  try {
-    console.log(' update users - - - - - - - - - - - - - - - - - -')
-    // res.json(await usersService.update(req.params.id, req.body));
-  } catch (err) {
-    console.error(`Error while updating programming language`, err.message);
-    next(err);
-  }
-}
-
-async function remove(req, res, next) {
-  try {
-    console.log(' remove users - - - - - - - - - - - - - - - - - -')
-    // res.json(await usersService.remove(req.params.id));
-  } catch (err) {
-    console.error(`Error while deleting programming language`, err.message);
-    next(err);
-  }
-} */
-
 export default {
   index,
   create
-  /* create,
-  update,
-  remove */
 }
