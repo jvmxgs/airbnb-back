@@ -17,7 +17,6 @@ const allowedOrigins = ['http://localhost:8080']
 app.use(
   cors({
     origin: function (origin: string | undefined, callback: (error: Error | null, allow?: boolean) => void): void {
-      console.log({ origin })
       if (origin === '' || origin === undefined || allowedOrigins.includes(origin ?? '')) {
         callback(null, true)
         return
@@ -48,5 +47,5 @@ app.get('/', (_req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`App listening on port ${port}`)
 })
