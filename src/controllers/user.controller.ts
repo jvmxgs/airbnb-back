@@ -16,8 +16,8 @@ function index (_req: Request, res: Response, next: NextFunction): void {
 }
 
 function create (req: Request, res: Response, next: NextFunction): void {
-  const { fullName, birthDate, email, password, passwordConfirm, role } = req.body
-
+  const { fullName, birthDate, email, password, passwordConfirm } = req.body
+  const role = 'user'
   const newUser = new User({ fullName, birthDate, email, password, role })
   newUser.validatedAt = undefined
 

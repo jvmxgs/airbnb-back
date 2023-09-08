@@ -16,7 +16,7 @@ export const authenticateUser = (req: Request, res: Response, next: NextFunction
         return
       }
 
-      if (user.validatedAt === null) {
+      if (user.validatedAt === null || user.validatedAt === undefined) {
         res.status(401).json({ message: i18n.__('auth.verify_account') })
         return
       }
