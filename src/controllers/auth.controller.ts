@@ -29,8 +29,12 @@ export const authenticateUser = (req: Request, res: Response, next: NextFunction
       const token = jwt.sign({ email }, app.secret)
       res.locals.user = { email }
       res.locals.token = token
+      const data = {
+        user,
+        token
+      }
 
-      res.json({ message: i18n.__('auth.login_success'), token })
+      res.json({ message: i18n.__('auth.login_success'), data })
       next()
     })
     .catch((error) => {

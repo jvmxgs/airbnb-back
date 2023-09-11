@@ -17,6 +17,17 @@
 			"invalid_password": "Password must be at least 6 characters long",
 			"invalid_role": "Invalid user role",
 			"password_not_match": "Passwords do NOT match"
+		},
+		"addresses": {
+			"country_required": "Country is required",
+			"state_required": "State is required",
+			"city_required": "City is required",
+			"street_required": "Street is required",
+			"postal_code": "Postal code is required"
 		}
-	}
+	},
+	"addresses": {
+		"created": "Address created successfully"
+	},
+	"Invalid value": "Invalid value"
 }
