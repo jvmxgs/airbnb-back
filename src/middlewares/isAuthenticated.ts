@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import app from '../config/app'
+import i18n from 'i18n'
 
 function isAuthenticated (req: Request, res: Response, next: NextFunction): void {
   const token = req.header('Authorization')
