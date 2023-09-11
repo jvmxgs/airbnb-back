@@ -3,7 +3,7 @@ import Address from '../models/address.model'
 import i18n from 'i18n'
 
 function index (req: Request, res: Response, _next: NextFunction): void {
-  Address.findOne({ user: req.params.userId })
+  Address.find({ user: req.params.userId })
     .select('country state city street postalCode date')
     .lean()
     .exec()
