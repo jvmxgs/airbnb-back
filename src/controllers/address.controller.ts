@@ -4,6 +4,7 @@ import i18n from 'i18n'
 
 function index (req: Request, res: Response, _next: NextFunction): void {
   Address.find({ user: req.params.userId })
+    .sort({ date: -1 })
     .select('country state city street postalCode date')
     .lean()
     .exec()
